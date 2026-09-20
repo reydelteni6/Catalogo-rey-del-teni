@@ -441,7 +441,65 @@ const productos = [
     disponibilidad: "AMBOS"
   }
 ];
+const vendedoras = {
 
+  "majo-rey1": {
+    nombre: "Majo",
+    cuenta: "Rey del Teni 1",
+    telefono: "526145364876",
+    tipo: "NACIONAL"
+  },
+
+  "majo-fresas1": {
+    nombre: "Majo",
+    cuenta: "Muy Fresas 1",
+    telefono: "526147104897",
+    tipo: "NACIONAL"
+  },
+
+  "aide-rey2": {
+    nombre: "Aide",
+    cuenta: "Rey del Teni 2",
+    telefono: "526141771982",
+    tipo: "NACIONAL"
+  },
+
+  "aide-fresas2": {
+    nombre: "Aide",
+    cuenta: "Muy Fresas 2",
+    telefono: "526146014658",
+    tipo: "NACIONAL"
+  },
+
+  "jenni-mayoreo": {
+    nombre: "Jenni",
+    cuenta: "Rey del Teni Mayoreo",
+    telefono: "526141263615",
+    tipo: "MAYOREO"
+  },
+
+  "ana-fresas": {
+    nombre: "Ana",
+    cuenta: "Muy Fresas",
+    telefono: "526145501039",
+    tipo: "LOCAL"
+  },
+
+  "katy-fresas": {
+    nombre: "Katy",
+    cuenta: "Muy Fresas",
+    telefono: "526141384997",
+    tipo: "LOCAL"
+  },
+
+  "fresas-3": {
+    nombre: "Muy Fresas",
+    cuenta: "Muy Fresas 3",
+    telefono: "526141258976",
+    tipo: "LOCAL"
+  }
+
+};
 
 let tallaSeleccionada = "";
 
@@ -507,7 +565,12 @@ function mostrarProductos(){
 
         <a
           class="btn"
-          href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20${encodeURIComponent(producto.nombre)}"
+          href="${(() => {
+  const codigo = new URLSearchParams(window.location.search).get('vendedora');
+  const vendedora = vendedoras[codigo] || vendedoras['majo-rey1'];
+  const mensaje = `Hola ${vendedora.nombre} 👋 Quiero pedir el ${producto.nombre}. Precio: $${producto.precio}.`;
+  return `https://wa.me/${vendedora.telefono}?text=${encodeURIComponent(mensaje)}`;
+})()}"
           target="_blank"
         >
           Pedir por WhatsApp
